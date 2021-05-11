@@ -4,106 +4,12 @@ Piece::Piece(Vei2 pos)
 	:
 	pos(pos)
 {
-	Field::Type type = Field::Type(rand() % 7 + 2);
-	switch (type)
-	{
-	case Field::Type::I:
-		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
-		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
-		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = 'X'; piece[15] = ' ';
-		break;
-	case Field::Type::J:
-		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
-		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
-		 piece[8] = ' ';  piece[9] = 'X'; piece[10] = 'X'; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::L:
-		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
-		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
-		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = 'X';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::O:
-		 piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = ' ';
-		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
-		 piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::S:
-		 piece[0] = ' ';  piece[1] = 'X';  piece[2] = ' ';  piece[3] = ' ';
-		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
-		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::T:
-		 piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = 'X';
-		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
-		 piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::Z:
-		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
-		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
-		 piece[8] = ' ';  piece[9] = 'X'; piece[10] = ' '; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	default:
-		break;
-	}
+	SetPiece();
 }
 
 void Piece::Reset(Vei2 pos)
 {
-	Field::Type type = Field::Type(rand() % 7 + 2);
-	switch (type)
-	{
-	case Field::Type::I:
-		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
-		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
-		piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = 'X'; piece[15] = ' ';
-		break;
-	case Field::Type::J:
-		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
-		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
-		piece[8] = ' ';  piece[9] = 'X'; piece[10] = 'X'; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::L:
-		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
-		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
-		piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = 'X';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::O:
-		piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = ' ';
-		piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
-		piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::S:
-		piece[0] = ' ';  piece[1] = 'X';  piece[2] = ' ';  piece[3] = ' ';
-		piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
-		piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::T:
-		piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = 'X';
-		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
-		piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	case Field::Type::Z:
-		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
-		piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
-		piece[8] = ' ';  piece[9] = 'X'; piece[10] = ' '; piece[11] = ' ';
-		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		break;
-	default:
-		break;
-	}
+	SetPiece();
 	this->pos = pos;
 }
 
@@ -136,7 +42,7 @@ void Piece::Draw(Graphics& gfx, const Vei2& offset)
 		{
 			int pi = Rotate(x, y, rot);
 			if(piece[pi]=='X')
-				gfx.DrawRect(RectI(offset + Vei2((pos.x+x) * Field::tileSize, (pos.y + y) * Field::tileSize), Field::tileSize, Field::tileSize), Colors::Blue);
+				gfx.DrawRect(RectI(offset + Vei2((pos.x+x) * Field::tileSize, (pos.y + y) * Field::tileSize), Field::tileSize, Field::tileSize), color);
 		}
 	}
 }
@@ -172,6 +78,11 @@ void Piece::Rotate(const Field& field)
 Vei2 Piece::GetPos() const
 {
 	return pos;
+}
+
+Field::Type Piece::GetType() const
+{
+	return type;
 }
 
 bool Piece::IsOccupied(int x, int y) const
@@ -218,6 +129,65 @@ bool Piece::PieceFits(Vei2 newPos, const Field& field)
 		}
 	}
 	return true;
+}
+
+void Piece::SetPiece()
+{
+	type = Field::Type(rand() % 7 + 2);
+	switch (type)
+	{
+	case Field::Type::I:
+		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = 'X'; piece[15] = ' ';
+		color = Colors::Cyan;
+		break;
+	case Field::Type::J:
+		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = 'X'; piece[10] = 'X'; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		color = Colors::Blue;
+		break;
+	case Field::Type::L:
+		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = 'X';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		color = { 255,165,0 };
+		break;
+	case Field::Type::O:
+		piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		color = Colors::Yellow;
+		break;
+	case Field::Type::S:
+		piece[0] = ' ';  piece[1] = 'X';  piece[2] = ' ';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		color = { 63,255,0 };
+		break;
+	case Field::Type::T:
+		piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = 'X';
+		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		color = Colors::Magenta;
+		break;
+	case Field::Type::Z:
+		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = 'X'; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		color = Colors::Red;
+		break;
+	default:
+		break;
+	}
 }
 
 int Piece::Rotate(int x, int y, Rotation rot)

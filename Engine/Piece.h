@@ -32,11 +32,15 @@ public:
 		return PieceFits(pos + Vei2(0, 1), field);
 	}
 	Vei2 GetPos()const;
+	Field::Type GetType()const;
 	bool IsOccupied(int x, int y)const;
 private:
 	bool PieceFits(Vei2 newPos, const Field& field);
+	void SetPiece();
 	int Rotate(int x, int y, Rotation rot);
 	char piece[16];
 	Vei2 pos;
+	Color color;
+	Field::Type type;
 	Rotation rot=Rotation::d0;
 };

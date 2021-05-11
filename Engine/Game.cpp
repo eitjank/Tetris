@@ -117,7 +117,7 @@ void Game::UpdateModel()
 					{
 						if (piece.IsOccupied(x, y))
 						{
-							gameField.Lock(pPos.x + x, pPos.y + y, Field::Type::J);//!!!!!!!!!! J
+							gameField.Lock(pPos.x + x, pPos.y + y, piece.GetType());
 						}
 					}
 				}

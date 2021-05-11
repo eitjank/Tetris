@@ -28,13 +28,41 @@ void Field::Draw(Graphics& gfx, const Vei2& offset)
 			{
 				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), wallColor);
 			}
+			else if (field[y * width + x] == Field::Type::I)
+			{
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::Cyan);
+			}
+			else if (field[y * width + x] == Field::Type::J)
+			{
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::Blue);
+			}
+			else if (field[y * width + x] == Field::Type::L)
+			{
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), { 255,165,0 });
+			}
+			else if (field[y * width + x] == Field::Type::O)
+			{
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::Yellow);
+			}
+			else if (field[y * width + x] == Field::Type::S)
+			{
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), { 63,255,0 });
+			}
+			else if (field[y * width + x] == Field::Type::T)
+			{
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::Magenta);
+			}
+			else if (field[y * width + x] == Field::Type::Z)
+			{
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::Red);
+			}
 			else if (field[y * width + x] == Field::Type::Full)
 			{
 				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::White);
 			}
 			else if (field[y * width + x] != Field::Type::None)
 			{
-				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::Red);
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::Gray);
 			}
 		}
 	}
