@@ -28,8 +28,17 @@ void Field::Draw(Graphics& gfx, const Vei2& offset)
 			{
 				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), wallColor);
 			}
+			else if (field[y * width + x] != Field::Type::None)
+			{
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::Red);
+			}
 		}
 	}
+}
+
+void Field::Lock(int x, int y, Type type)
+{
+	field[y * width + x] = type;
 }
 
 int Field::GetWidth() const

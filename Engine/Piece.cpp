@@ -53,36 +53,63 @@ Piece::Piece(Field::Type type, Vei2 pos)
 	}
 }
 
+void Piece::Reset(Vei2 pos)
+{
+	Field::Type type = Field::Type(rand() % 7 + 2);
+	switch (type)
+	{
+	case Field::Type::I:
+		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = 'X'; piece[15] = ' ';
+		break;
+	case Field::Type::J:
+		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = 'X'; piece[10] = 'X'; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::L:
+		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = 'X';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::O:
+		piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::S:
+		piece[0] = ' ';  piece[1] = 'X';  piece[2] = ' ';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::T:
+		piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = 'X';
+		piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::Z:
+		piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
+		piece[8] = ' ';  piece[9] = 'X'; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	default:
+		break;
+	}
+	this->pos = pos;
+}
+
 void Piece::Move(Direction dir, const Field& field)
 {
 	switch (dir)
 	{
-	/*case Piece::Direction::Up:
-		if (rot == Rotation::d0)
-		{
-			rot = Rotation::d90;
-			if(!PieceFits(pos,field))
-				rot = Rotation::d0;
-		}
-		else if (rot == Rotation::d90)
-		{
-			rot = Rotation::d180;
-			if (!PieceFits(pos, field))
-				rot = Rotation::d90;
-		}
-		else if (rot == Rotation::d180)
-		{
-			rot = Rotation::d270;
-			if (!PieceFits(pos, field))
-				rot = Rotation::d180;
-		}
-		else if (rot == Rotation::d270)
-		{
-			rot = Rotation::d0;
-			if (!PieceFits(pos, field))
-				rot = Rotation::d270;
-		}
-		break;*/
 	case Piece::Direction::Right:
 		if (PieceFits(pos + Vei2(1, 0), field))
 			pos.x++;
@@ -139,6 +166,31 @@ void Piece::Rotate(const Field& field)
 		if (!PieceFits(pos, field))
 			rot = Rotation::d270;
 	}
+}
+
+Vei2 Piece::GetPos() const
+{
+	return pos;
+}
+
+bool Piece::IsOccupied(int x, int y) const
+{
+	switch (rot)
+	{
+	case Rotation::d0:
+		return piece[y * 4 + x] == 'X';
+		break;
+	case Rotation::d90:
+		return piece[12 + y - 4 * x] == 'X';
+		break;
+	case Rotation::d180:
+		return piece[15 - 4 * y - x] == 'X';
+		break;
+	case Rotation::d270:
+		return piece[3 - y + 4 * x] == 'X';
+		break;
+	}
+	return false;
 }
 
 bool Piece::PieceFits(Vei2 newPos, const Field& field)

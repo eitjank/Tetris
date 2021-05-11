@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	piece(Field::Type::J, Vei2(4,0))
+	piece(Field::Type::J, pieceStartingPosition)
 {
 }
 
@@ -90,8 +90,23 @@ void Game::UpdateModel()
 		else
 		{
 			//Lock the piece in the field
-
+			//gameField.Lock(piece);
+			Vei2 pPos = piece.GetPos();
+			for (int y = 0;y < 4;y++)
+			{
+				for (int x = 0;x < 4;x++)
+				{
+					if (piece.IsOccupied(x, y))
+					{
+						gameField.Lock(pPos.x + x, pPos.y + y, Field::Type::J);//!!!!!!!!!! J
+					}
+				}
+			}
 			//Check for horizontal lines
+
+			//Choose next piece
+			piece.Reset(pieceStartingPosition);
+			//Piece does not fit
 		}
 
 	}

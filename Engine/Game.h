@@ -45,6 +45,7 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	Vei2 pieceStartingPosition = Vei2(4, 0);
 	Field gameField;
 	Piece piece;
 	FrameTimer ft;

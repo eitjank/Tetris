@@ -20,6 +20,7 @@ public:
 public:
 	Field();
 	void Draw(Graphics& gfx, const Vei2& pos);
+	void Lock(int x, int y, Type type);
 	int GetWidth()const;
 	int GetHeight()const;
 	Type GetField(int i)const;
