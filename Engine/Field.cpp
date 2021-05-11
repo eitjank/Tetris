@@ -63,6 +63,22 @@ bool Field::FullLine(int y)
 	return false;
 }
 
+void Field::CopyAboveLine(int y)
+{
+	for (int x = 1;x < width - 1;x++)
+	{
+		field[y * width + x] = field[(y - 1) * width + x];
+	}
+}
+
+void Field::ClearLine(int y)
+{
+	for (int x = 1;x < width - 1;x++)
+	{
+		field[y * width + x] = Field::Type::None;
+	}
+}
+
 int Field::GetWidth() const
 {
 	return width;

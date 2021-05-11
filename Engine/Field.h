@@ -23,6 +23,8 @@ public:
 	void Draw(Graphics& gfx, const Vei2& pos);
 	void Lock(int x, int y, Type type);
 	bool FullLine(int y);
+	void CopyAboveLine(int y);
+	void ClearLine(int y);
 	int GetWidth()const;
 	int GetHeight()const;
 	Type GetField(int i)const;

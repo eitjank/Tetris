@@ -28,6 +28,7 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	piece(pieceStartingPosition)
 {
+	srand(time(0));
 }
 
 void Game::Go()
@@ -51,7 +52,15 @@ void Game::UpdateModel()
 			lineTime -= dt;
 			if (lineTime <= 0)
 			{
-
+				for (auto &ry : fullLineRow)
+				{
+					for (int y = ry;y > 0;y--)
+					{
+						gameField.CopyAboveLine(y);
+					}
+				}
+				gameField.ClearLine(0);
+				fullLineRow.clear();
 			}
 		}
 
@@ -117,6 +126,7 @@ void Game::UpdateModel()
 				{
 					if (gameField.FullLine(pPos.y + y))
 					{
+						fullLineRow.push_back(pPos.y + y);
 						lineTime = lineDisapperTime;
 					}
 				}
