@@ -53,6 +53,8 @@ private:
 	float PieceMoveCounter = 0.0f;
 	static constexpr float PieceFallPeriod = 1.0f;
 	float PieceFallCounter = 0.0f;
-
+	static constexpr float lineDisapperTime = 1.5f;
+	float lineTime = 0.0f;
+	bool gameOver = false;
 	/********************************/
 };

@@ -15,12 +15,14 @@ public:
 		O,
 		S,
 		T,
-		Z
+		Z,
+		Full
 	};
 public:
 	Field();
 	void Draw(Graphics& gfx, const Vei2& pos);
 	void Lock(int x, int y, Type type);
+	bool FullLine(int y);
 	int GetWidth()const;
 	int GetHeight()const;
 	Type GetField(int i)const;

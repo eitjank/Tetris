@@ -28,6 +28,10 @@ void Field::Draw(Graphics& gfx, const Vei2& offset)
 			{
 				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), wallColor);
 			}
+			else if (field[y * width + x] == Field::Type::Full)
+			{
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::White);
+			}
 			else if (field[y * width + x] != Field::Type::None)
 			{
 				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), Colors::Red);
@@ -39,6 +43,24 @@ void Field::Draw(Graphics& gfx, const Vei2& offset)
 void Field::Lock(int x, int y, Type type)
 {
 	field[y * width + x] = type;
+}
+
+bool Field::FullLine(int y)
+{
+	if (y < height - 1)
+	{
+		for (int x = 1;x < width - 1;x++)
+		{
+			if (field[y * width + x] == Field::Type::None)
+				return false;
+		}
+		for (int x = 1;x < width - 1;x++)
+		{
+			field[y * width + x] = Field::Type::Full;
+		}
+		return true;
+	}
+	return false;
 }
 
 int Field::GetWidth() const

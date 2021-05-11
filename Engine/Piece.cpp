@@ -1,9 +1,10 @@
 #include "Piece.h"
 
-Piece::Piece(Field::Type type, Vei2 pos)
+Piece::Piece(Vei2 pos)
 	:
 	pos(pos)
 {
+	Field::Type type = Field::Type(rand() % 7 + 2);
 	switch (type)
 	{
 	case Field::Type::I:

@@ -22,7 +22,7 @@ public:
 		d270
 	};
 public:
-	Piece(Field::Type type, Vei2 pos);
+	Piece(Vei2 pos);
 	void Reset(Vei2 pos);
 	void Move(Direction dir, const Field& field);
 	void Draw(Graphics& gfx, const Vei2& offset);

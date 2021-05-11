@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	piece(Field::Type::J, pieceStartingPosition)
+	piece(pieceStartingPosition)
 {
 }
 
@@ -40,82 +40,102 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	const float dt = ft.Mark();
-	PieceMoveCounter += dt;
-	PieceFallCounter += dt;
-
-	Piece::Direction dir = Piece::Direction::None;
-	
-	while (!wnd.kbd.KeyIsEmpty())
+	if (!gameOver)
 	{
-		// get an event from the queue
-		const Keyboard::Event e = wnd.kbd.ReadKey();
-		// check if it is a press event
-		if (e.IsPress())
+		const float dt = ft.Mark();
+		PieceMoveCounter += dt;
+		PieceFallCounter += dt;
+
+		if (lineTime > 0)
 		{
-			if (e.GetCode() == VK_UP)
+			lineTime -= dt;
+			if (lineTime <= 0)
 			{
-				piece.Rotate(gameField);
+
 			}
 		}
-	}
 
-	if (wnd.kbd.KeyIsPressed(VK_DOWN))
-	{
-		dir = Piece::Direction::Down;
-	}
-	else if (wnd.kbd.KeyIsPressed(VK_LEFT))
-	{
-		dir = Piece::Direction::Left;
-	}
-	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
-	{
-		dir = Piece::Direction::Right;
-	}
+		Piece::Direction dir = Piece::Direction::None;
 
-	if (PieceMoveCounter >= PieceMovePeriod)
-	{
-		PieceMoveCounter -= PieceMovePeriod;
-
-		piece.Move(dir,gameField);
-	}
-
-	if (PieceFallCounter >= PieceFallPeriod)
-	{
-		PieceFallCounter -= PieceFallPeriod;
-		if (piece.FitsDownwards(gameField))
+		while (!wnd.kbd.KeyIsEmpty())
 		{
-			piece.Move(Piece::Direction::Down, gameField);
-		}
-		else
-		{
-			//Lock the piece in the field
-			//gameField.Lock(piece);
-			Vei2 pPos = piece.GetPos();
-			for (int y = 0;y < 4;y++)
+			// get an event from the queue
+			const Keyboard::Event e = wnd.kbd.ReadKey();
+			// check if it is a press event
+			if (e.IsPress())
 			{
-				for (int x = 0;x < 4;x++)
+				if (e.GetCode() == VK_UP)
 				{
-					if (piece.IsOccupied(x, y))
-					{
-						gameField.Lock(pPos.x + x, pPos.y + y, Field::Type::J);//!!!!!!!!!! J
-					}
+					piece.Rotate(gameField);
 				}
 			}
-			//Check for horizontal lines
-
-			//Choose next piece
-			piece.Reset(pieceStartingPosition);
-			//Piece does not fit
 		}
 
-	}
+		if (wnd.kbd.KeyIsPressed(VK_DOWN))
+		{
+			dir = Piece::Direction::Down;
+		}
+		else if (wnd.kbd.KeyIsPressed(VK_LEFT))
+		{
+			dir = Piece::Direction::Left;
+		}
+		else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+		{
+			dir = Piece::Direction::Right;
+		}
 
+		if (PieceMoveCounter >= PieceMovePeriod)
+		{
+			PieceMoveCounter -= PieceMovePeriod;
+
+			piece.Move(dir, gameField);
+		}
+
+		if (PieceFallCounter >= PieceFallPeriod)
+		{
+			PieceFallCounter -= PieceFallPeriod;
+			if (piece.FitsDownwards(gameField))
+			{
+				piece.Move(Piece::Direction::Down, gameField);
+			}
+			else
+			{
+				//Lock the piece in the field
+				Vei2 pPos = piece.GetPos();
+				for (int y = 0;y < 4;y++)
+				{
+					for (int x = 0;x < 4;x++)
+					{
+						if (piece.IsOccupied(x, y))
+						{
+							gameField.Lock(pPos.x + x, pPos.y + y, Field::Type::J);//!!!!!!!!!! J
+						}
+					}
+				}
+				//Check for horizontal lines
+				for (int y = 0;y < 4;y++)
+				{
+					if (gameField.FullLine(pPos.y + y))
+					{
+						lineTime = lineDisapperTime;
+					}
+				}
+				//Choose next piece
+				piece.Reset(pieceStartingPosition);
+				//Piece does not fit
+				gameOver = !piece.FitsDownwards(gameField);
+			}
+		}
+	}
 }
 
 void Game::ComposeFrame()
 {
 	//gfx.DrawRect(RectI(Vei2(50, 50), 50, 50), Colors::Green);
-	gameField.Draw(gfx, Vei2(100,25));
-	piece.Draw(gfx, Vei2(100, 25));
+
+	//if (!gameOver)
+	{
+		gameField.Draw(gfx, Vei2(100, 25));
+		piece.Draw(gfx, Vei2(100, 25));
+	}
 }
