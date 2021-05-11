@@ -20,11 +20,13 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "Vei2.h"
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	piece(Field::Type::J, Vei2(4,0))
 {
 }
 
@@ -38,8 +40,67 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float dt = ft.Mark();
+	PieceMoveCounter += dt;
+	PieceFallCounter += dt;
+
+	Piece::Direction dir = Piece::Direction::None;
+	
+	while (!wnd.kbd.KeyIsEmpty())
+	{
+		// get an event from the queue
+		const Keyboard::Event e = wnd.kbd.ReadKey();
+		// check if it is a press event
+		if (e.IsPress())
+		{
+			if (e.GetCode() == VK_UP)
+			{
+				piece.Rotate(gameField);
+			}
+		}
+	}
+
+	if (wnd.kbd.KeyIsPressed(VK_DOWN))
+	{
+		dir = Piece::Direction::Down;
+	}
+	else if (wnd.kbd.KeyIsPressed(VK_LEFT))
+	{
+		dir = Piece::Direction::Left;
+	}
+	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	{
+		dir = Piece::Direction::Right;
+	}
+
+	if (PieceMoveCounter >= PieceMovePeriod)
+	{
+		PieceMoveCounter -= PieceMovePeriod;
+
+		piece.Move(dir,gameField);
+	}
+
+	if (PieceFallCounter >= PieceFallPeriod)
+	{
+		PieceFallCounter -= PieceFallPeriod;
+		if (piece.FitsDownwards(gameField))
+		{
+			piece.Move(Piece::Direction::Down, gameField);
+		}
+		else
+		{
+			//Lock the piece in the field
+
+			//Check for horizontal lines
+		}
+
+	}
+
 }
 
 void Game::ComposeFrame()
 {
+	//gfx.DrawRect(RectI(Vei2(50, 50), 50, 50), Colors::Green);
+	gameField.Draw(gfx, Vei2(100,25));
+	piece.Draw(gfx, Vei2(100, 25));
 }

@@ -23,6 +23,9 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Field.h"
+#include "Piece.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -42,5 +45,13 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	Field gameField;
+	Piece piece;
+	FrameTimer ft;
+	static constexpr float PieceMovePeriod = 0.05f;
+	float PieceMoveCounter = 0.0f;
+	static constexpr float PieceFallPeriod = 1.0f;
+	float PieceFallCounter = 0.0f;
+
 	/********************************/
 };

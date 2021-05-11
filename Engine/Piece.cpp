@@ -1,0 +1,188 @@
+#include "Piece.h"
+
+Piece::Piece(Field::Type type, Vei2 pos)
+	:
+	pos(pos)
+{
+	switch (type)
+	{
+	case Field::Type::I:
+		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = 'X'; piece[15] = ' ';
+		break;
+	case Field::Type::J:
+		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		 piece[8] = ' ';  piece[9] = 'X'; piece[10] = 'X'; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::L:
+		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = 'X';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::O:
+		 piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = ' ';
+		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
+		 piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::S:
+		 piece[0] = ' ';  piece[1] = 'X';  piece[2] = ' ';  piece[3] = ' ';
+		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
+		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::T:
+		 piece[0] = ' ';  piece[1] = 'X';  piece[2] = 'X';  piece[3] = 'X';
+		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
+		 piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	case Field::Type::Z:
+		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
+		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
+		 piece[8] = ' ';  piece[9] = 'X'; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		break;
+	default:
+		break;
+	}
+}
+
+void Piece::Move(Direction dir, const Field& field)
+{
+	switch (dir)
+	{
+	/*case Piece::Direction::Up:
+		if (rot == Rotation::d0)
+		{
+			rot = Rotation::d90;
+			if(!PieceFits(pos,field))
+				rot = Rotation::d0;
+		}
+		else if (rot == Rotation::d90)
+		{
+			rot = Rotation::d180;
+			if (!PieceFits(pos, field))
+				rot = Rotation::d90;
+		}
+		else if (rot == Rotation::d180)
+		{
+			rot = Rotation::d270;
+			if (!PieceFits(pos, field))
+				rot = Rotation::d180;
+		}
+		else if (rot == Rotation::d270)
+		{
+			rot = Rotation::d0;
+			if (!PieceFits(pos, field))
+				rot = Rotation::d270;
+		}
+		break;*/
+	case Piece::Direction::Right:
+		if (PieceFits(pos + Vei2(1, 0), field))
+			pos.x++;
+		break;
+	case Piece::Direction::Down:
+		if (PieceFits(pos + Vei2(0, 1), field))
+			pos.y++;
+		break;
+	case Piece::Direction::Left:
+		if (PieceFits(pos + Vei2(-1, 0), field))
+			pos.x--;
+		break;
+	default:
+		break;
+	}
+}
+
+void Piece::Draw(Graphics& gfx, const Vei2& offset)
+{
+	for (int y = 0;y < 4;y++)
+	{
+		for (int x = 0;x < 4;x++)
+		{
+			int pi = Rotate(x, y, rot);
+			if(piece[pi]=='X')
+				gfx.DrawRect(RectI(offset + Vei2((pos.x+x) * Field::tileSize, (pos.y + y) * Field::tileSize), Field::tileSize, Field::tileSize), Colors::Blue);
+		}
+	}
+}
+
+void Piece::Rotate(const Field& field)
+{
+	if (rot == Rotation::d0)
+	{
+		rot = Rotation::d90;
+		if (!PieceFits(pos, field))
+			rot = Rotation::d0;
+	}
+	else if (rot == Rotation::d90)
+	{
+		rot = Rotation::d180;
+		if (!PieceFits(pos, field))
+			rot = Rotation::d90;
+	}
+	else if (rot == Rotation::d180)
+	{
+		rot = Rotation::d270;
+		if (!PieceFits(pos, field))
+			rot = Rotation::d180;
+	}
+	else if (rot == Rotation::d270)
+	{
+		rot = Rotation::d0;
+		if (!PieceFits(pos, field))
+			rot = Rotation::d270;
+	}
+}
+
+bool Piece::PieceFits(Vei2 newPos, const Field& field)
+{
+	const int fieldWidth = field.GetWidth();
+	const int fieldHeight = field.GetHeight();
+	for (int y = 0;y < 4;y++)
+	{
+		for (int x = 0;x < 4;x++)
+		{
+			int pi = Rotate(x, y, rot);
+
+			int fi = (newPos.y + y) * fieldWidth + newPos.x + x;
+
+			if (newPos.x + x >= 0 && newPos.x + x < fieldWidth &&
+				newPos.y + y >= 0 && newPos.y + y < fieldHeight)
+			{
+				if (piece[pi] == 'X' && field.GetField(fi) != Field::Type::None)
+				{
+					return false;
+				}
+			}
+			
+		}
+	}
+	return true;
+}
+
+int Piece::Rotate(int x, int y, Rotation rot)
+{
+	switch (rot)
+	{
+	case Rotation::d0:
+		return y * 4 + x;
+		break;
+	case Rotation::d90:
+		return 12 + y - 4 * x;
+		break;
+	case Rotation::d180:
+		return 15 - 4 * y - x;
+		break;
+	case Rotation::d270:
+		return 3 - y + 4 * x;
+		break;
+	}
+	return 0;
+}
