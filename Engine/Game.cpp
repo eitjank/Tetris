@@ -102,13 +102,19 @@ void Game::UpdateModel()
 			}
 			else
 			{
-				piece.Move(dir, gameField);
+				if (piece.Move(dir, gameField) && dir == Piece::Direction::Down)
+				{
+					PieceFallCounter = 0.0f;
+				}
 				PieceMoveCounter = PieceMovePeriod;
 			}
 		}
 		else
 		{
-			piece.Move(dir, gameField);
+			if (piece.Move(dir, gameField) && dir==Piece::Direction::Down)
+			{
+				PieceFallCounter = 0.0f;
+			}
 			PieceMoveCounter = PieceMovePeriod;
 			nFaster = nFasterConst;
 		}
