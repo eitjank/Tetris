@@ -50,7 +50,7 @@ void Field::Draw(Graphics& gfx, const Vei2& offset)
 			}
 			else if (field[y * width + x] == Field::Type::T)
 			{
-				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize).GetExpanded(-1), Colors::Magenta);
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize).GetExpanded(-1), { 204,0,204 });
 			}
 			else if (field[y * width + x] == Field::Type::Z)
 			{
