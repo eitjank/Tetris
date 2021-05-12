@@ -53,7 +53,7 @@ void Piece::Draw(Graphics& gfx, const Vei2& offset)
 		{
 			int pi = Rotate(x, y, rot);
 			if(piece[pi]=='X')
-				gfx.DrawRect(RectI(offset + Vei2((pos.x+x) * Field::tileSize, (pos.y + y) * Field::tileSize), Field::tileSize, Field::tileSize), color);
+				gfx.DrawRect(RectI(offset + Vei2((pos.x+x) * Field::tileSize, (pos.y + y) * Field::tileSize), Field::tileSize, Field::tileSize).GetExpanded(Field::padding), color);
 		}
 	}
 }

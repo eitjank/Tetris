@@ -29,6 +29,7 @@ public:
 	int GetHeight()const;
 	Type GetField(int i)const;
 	static constexpr int tileSize = 28;
+	static constexpr int padding = -1;
 private:
 	static constexpr int width = 12;
 	static constexpr int height = 18;
