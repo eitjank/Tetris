@@ -174,7 +174,7 @@ void Game::ComposeFrame()
 
 	//if (!gameOver)
 	{
-		gameField.Draw(gfx, Vei2(100, 25));
-		piece.Draw(gfx, Vei2(100, 25));
+		gameField.Draw(gfx, Vei2(232, 5));
+		piece.Draw(gfx, Vei2(232, 5));
 	}
 }
