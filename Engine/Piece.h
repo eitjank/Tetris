@@ -24,7 +24,7 @@ public:
 public:
 	Piece(Vei2 pos);
 	void Reset(Vei2 pos);
-	void Move(Direction dir, const Field& field);
+	bool Move(Direction dir, const Field& field);
 	void Draw(Graphics& gfx, const Vei2& offset);
 	void Rotate(const Field& field);
 	bool FitsDownwards(const Field& field)

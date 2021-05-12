@@ -50,13 +50,17 @@ private:
 	Field gameField;
 	Piece piece;
 	FrameTimer ft;
-	static constexpr float PieceMovePeriod = 0.05f;
+	static constexpr float PieceMovePeriod = 0.5f;
 	float PieceMoveCounter = 0.0f;
 	static constexpr float PieceFallPeriod = 1.0f;
 	float PieceFallCounter = 0.0f;
-	static constexpr float lineDisapperTime = 0.6f;
+	static constexpr float lineDisapperTime = 0.4f;
 	float lineTime = 0.0f;
 	bool gameOver = false;
 	std::vector<int> fullLineRow;
+	Piece::Direction oldDir=Piece::Direction::None;
+	static constexpr float nFasterAdd = 2.0f;
+	static constexpr float nFasterConst = 1.00f;
+	float nFaster = nFasterConst;
 	/********************************/
 };

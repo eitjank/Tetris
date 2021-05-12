@@ -44,7 +44,7 @@ void Game::UpdateModel()
 	if (!gameOver)
 	{
 		const float dt = ft.Mark();
-		PieceMoveCounter += dt;
+		//PieceMoveCounter += dt;
 		PieceFallCounter += dt;
 
 		if (lineTime > 0)
@@ -93,12 +93,34 @@ void Game::UpdateModel()
 			dir = Piece::Direction::Right;
 		}
 
-		if (PieceMoveCounter >= PieceMovePeriod)
+		if (oldDir == dir)
+		{
+			if (PieceMoveCounter > 0)
+			{
+				PieceMoveCounter -= dt * nFaster;
+				nFaster += nFasterAdd;
+			}
+			else
+			{
+				piece.Move(dir, gameField);
+				PieceMoveCounter = PieceMovePeriod;
+			}
+		}
+		else
+		{
+			piece.Move(dir, gameField);
+			PieceMoveCounter = PieceMovePeriod;
+			nFaster = nFasterConst;
+		}
+		oldDir = dir;
+
+
+		/*if (PieceMoveCounter >= PieceMovePeriod)
 		{
 			PieceMoveCounter -= PieceMovePeriod;
-
 			piece.Move(dir, gameField);
-		}
+
+		}*/
 
 		if (PieceFallCounter >= PieceFallPeriod)
 		{
@@ -132,6 +154,7 @@ void Game::UpdateModel()
 				}
 				//Choose next piece
 				piece.Reset(pieceStartingPosition);
+				nFaster = nFasterConst;
 				//Piece does not fit
 				gameOver = !piece.FitsDownwards(gameField);
 			}

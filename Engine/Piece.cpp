@@ -13,25 +13,36 @@ void Piece::Reset(Vei2 pos)
 	this->pos = pos;
 }
 
-void Piece::Move(Direction dir, const Field& field)
+bool Piece::Move(Direction dir, const Field& field)
 {
 	switch (dir)
 	{
 	case Piece::Direction::Right:
 		if (PieceFits(pos + Vei2(1, 0), field))
+		{
 			pos.x++;
+			return true;
+		}
 		break;
 	case Piece::Direction::Down:
 		if (PieceFits(pos + Vei2(0, 1), field))
+		{
 			pos.y++;
+			return true;
+		}
 		break;
 	case Piece::Direction::Left:
 		if (PieceFits(pos + Vei2(-1, 0), field))
+		{
 			pos.x--;
+			return true;
+		}
 		break;
 	default:
+		return false;
 		break;
 	}
+	return false;
 }
 
 void Piece::Draw(Graphics& gfx, const Vei2& offset)
