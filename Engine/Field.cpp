@@ -26,7 +26,7 @@ void Field::Draw(Graphics& gfx, const Vei2& offset)
 		{
 			if (field[y * width + x] == Field::Type::Wall)
 			{
-				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize).GetExpanded(-1), wallColor);
+				gfx.DrawRect(RectI(offset + Vei2(x * tileSize, y * tileSize), tileSize, tileSize), wallColor);
 			}
 			else if (field[y * width + x] == Field::Type::I)
 			{

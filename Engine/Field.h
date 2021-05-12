@@ -33,6 +33,6 @@ public:
 private:
 	static constexpr int width = 12;
 	static constexpr int height = 18;
-	static constexpr Color wallColor = Colors::LightGray;
+	static constexpr Color wallColor = Colors::Gray;
 	Type field[width * height];
 };
