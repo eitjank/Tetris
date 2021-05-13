@@ -29,6 +29,7 @@
 #include <vector>
 //#include "Surface.h"
 #include "Font.h"
+#include <string>
 
 class Game
 {
@@ -55,8 +56,11 @@ private:
 	Font font = Font("ConsolasFontPt6.bmp");
 	static constexpr float PieceMovePeriod = 0.5f;
 	float PieceMoveCounter = 0.0f;
-	static constexpr float PieceFallPeriod = 1.0f;
-	float PieceFallCounter = 0.0f;
+	static constexpr float initialPieceFallPeriod = 1.0f;
+	static constexpr float minPieceFallPeriod = 0.4f;
+	static constexpr float pieceFallingAceleration= 0.05f;//per line cleared
+	float pieceFallPeriod = initialPieceFallPeriod;
+	float pieceFallCounter = 0.0f;
 	static constexpr float lineDisapperTime = 0.4f;
 	float lineTime = 0.0f;
 	bool gameOver = false;
@@ -65,5 +69,9 @@ private:
 	static constexpr float nFasterAdd = 2.0f;
 	static constexpr float nFasterConst = 1.00f;
 	float nFaster = nFasterConst;
+	static constexpr int lineScoreMultiplier = 2;
+	static constexpr int lineScore = 100;
+	static constexpr int fallingScoreMultiplier = 1;
+	int score = 0;
 	/********************************/
 };

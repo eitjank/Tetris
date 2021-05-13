@@ -28,7 +28,7 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	piece(pieceStartingPosition)
 {
-	srand(time(0));
+	srand(int(time(0)));
 }
 
 void Game::Go()
@@ -44,24 +44,7 @@ void Game::UpdateModel()
 	if (!gameOver)
 	{
 		const float dt = ft.Mark();
-		PieceFallCounter += dt;
-
-		if (lineTime > 0)
-		{
-			lineTime -= dt;
-			if (lineTime <= 0)
-			{
-				for (auto &ry : fullLineRow)
-				{
-					for (int y = ry;y > 0;y--)
-					{
-						gameField.CopyAboveLine(y);
-					}
-				}
-				gameField.ClearLine(0);
-				fullLineRow.clear();
-			}
-		}
+		pieceFallCounter += dt;
 
 		Piece::Direction dir = Piece::Direction::None;
 
@@ -103,7 +86,8 @@ void Game::UpdateModel()
 			{
 				if (piece.Move(dir, gameField) && dir == Piece::Direction::Down)
 				{
-					PieceFallCounter = 0.0f;
+					pieceFallCounter = 0.0f;
+					score += fallingScoreMultiplier;
 				}
 				PieceMoveCounter = PieceMovePeriod;
 			}
@@ -112,7 +96,7 @@ void Game::UpdateModel()
 		{
 			if (piece.Move(dir, gameField) && dir==Piece::Direction::Down)
 			{
-				PieceFallCounter = 0.0f;
+				pieceFallCounter = 0.0f;
 			}
 			PieceMoveCounter = PieceMovePeriod;
 			nFaster = nFasterConst;
@@ -120,9 +104,9 @@ void Game::UpdateModel()
 		oldDir = dir;
 
 
-		if (PieceFallCounter >= PieceFallPeriod)
+		if (pieceFallCounter >= pieceFallPeriod)
 		{
-			PieceFallCounter -= PieceFallPeriod;
+			pieceFallCounter -= pieceFallPeriod;
 			if (piece.FitsDownwards(gameField))
 			{
 				piece.Move(Piece::Direction::Down, gameField);
@@ -157,6 +141,33 @@ void Game::UpdateModel()
 				gameOver = !piece.FitsDownwards(gameField);
 			}
 		}
+
+		if (lineTime > 0)
+		{
+			lineTime -= dt;
+			if (lineTime <= 0)
+			{
+				pieceFallPeriod = std::max(pieceFallPeriod - fullLineRow.size() * pieceFallingAceleration, minPieceFallPeriod);
+				if (fullLineRow.size() > 1)
+				{
+					score += int( pow( lineScoreMultiplier, int( fullLineRow.size() ) ) ) * lineScore;
+				}
+				else
+				{
+					score += lineScore;
+				}
+				for (auto& ry : fullLineRow)
+				{
+					for (int y = ry;y > 0;y--)
+					{
+						gameField.CopyAboveLine(y);
+					}
+				}
+				gameField.ClearLine(0);
+				fullLineRow.clear();
+			}
+		}
+
 	}
 }
 
@@ -164,7 +175,7 @@ void Game::ComposeFrame()
 {
 	gameField.Draw(gfx, Vei2(232, 5));
 	piece.Draw(gfx, Vei2(232, 5));
-	
+	font.DrawText("Score:" + std::to_string(score), Vei2(580, 10), gfx);
 	if (gameOver)
 	{
 		font.DrawText("Game over!", Vei2(345, 515), gfx, Colors::White);
