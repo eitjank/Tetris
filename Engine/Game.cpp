@@ -29,6 +29,7 @@ Game::Game( MainWindow& wnd )
 	piece(pieceStartingPosition)
 {
 	srand(int(time(0)));
+	piece.Reset(pieceStartingPosition);
 }
 
 void Game::Go()
