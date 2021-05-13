@@ -9,6 +9,7 @@ Piece::Piece(Vei2 pos)
 
 void Piece::Reset(Vei2 pos)
 {
+	rot = Rotation::d0;
 	SetPiece();
 	this->pos = pos;
 }

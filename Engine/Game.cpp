@@ -44,7 +44,6 @@ void Game::UpdateModel()
 	if (!gameOver)
 	{
 		const float dt = ft.Mark();
-		//PieceMoveCounter += dt;
 		PieceFallCounter += dt;
 
 		if (lineTime > 0)
@@ -121,13 +120,6 @@ void Game::UpdateModel()
 		oldDir = dir;
 
 
-		/*if (PieceMoveCounter >= PieceMovePeriod)
-		{
-			PieceMoveCounter -= PieceMovePeriod;
-			piece.Move(dir, gameField);
-
-		}*/
-
 		if (PieceFallCounter >= PieceFallPeriod)
 		{
 			PieceFallCounter -= PieceFallPeriod;
@@ -170,11 +162,11 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	//gfx.DrawRect(RectI(Vei2(50, 50), 50, 50), Colors::Green);
-
-	//if (!gameOver)
+	gameField.Draw(gfx, Vei2(232, 5));
+	piece.Draw(gfx, Vei2(232, 5));
+	
+	if (gameOver)
 	{
-		gameField.Draw(gfx, Vei2(232, 5));
-		piece.Draw(gfx, Vei2(232, 5));
+		font.DrawText("Game over!", Vei2(345, 515), gfx, Colors::White);
 	}
 }

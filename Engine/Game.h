@@ -27,6 +27,8 @@
 #include "Piece.h"
 #include "FrameTimer.h"
 #include <vector>
+//#include "Surface.h"
+#include "Font.h"
 
 class Game
 {
@@ -50,6 +52,7 @@ private:
 	Field gameField;
 	Piece piece;
 	FrameTimer ft;
+	Font font = Font("ConsolasFontPt6.bmp");
 	static constexpr float PieceMovePeriod = 0.5f;
 	float PieceMoveCounter = 0.0f;
 	static constexpr float PieceFallPeriod = 1.0f;
