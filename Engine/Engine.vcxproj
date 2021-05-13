@@ -142,6 +142,7 @@
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
@@ -153,12 +154,15 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="SpriteEffect.h" />
+    <ClInclude Include="Surface.h" />
     <ClInclude Include="Vei2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -169,6 +173,7 @@
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="RectI.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Vei2.cpp" />
   </ItemGroup>
   <ItemGroup>
