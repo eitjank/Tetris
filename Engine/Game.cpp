@@ -26,10 +26,13 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	piece(pieceStartingPosition)
+	piece(pieceStartingPosition),
+	nextPiece(Vei2(0, 0))
 {
 	srand(int(time(0)));
 	piece.Reset(pieceStartingPosition);
+	next = Field::Type(rand() % 7 + 2);
+	nextPiece.Reset(Vei2(0, 0), next);
 }
 
 void Game::Go()
@@ -136,7 +139,9 @@ void Game::UpdateModel()
 					}
 				}
 				//Choose next piece
-				piece.Reset(pieceStartingPosition);
+				piece.Reset(pieceStartingPosition, next);
+				next = Field::Type(rand() % 7 + 2);
+				nextPiece.Reset(Vei2(0, 0), next);
 				nFaster = nFasterConst;
 				//Piece does not fit
 				gameOver = !piece.FitsDownwards(gameField);
@@ -176,7 +181,9 @@ void Game::ComposeFrame()
 {
 	gameField.Draw(gfx, Vei2(232, 5));
 	piece.Draw(gfx, Vei2(232, 5));
-	font.DrawText("Score:" + std::to_string(score), Vei2(580, 10), gfx);
+	nextPiece.Draw(gfx, Vei2(566, 39));
+	font.DrawText("Next:", Vei2(580, 10), gfx);
+	font.DrawText("Score:" + std::to_string(score),Vei2(580, 155) , gfx);
 	if (gameOver)
 	{
 		font.DrawText("Game over!", Vei2(345, 515), gfx, Colors::White);

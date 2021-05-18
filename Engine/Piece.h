@@ -24,6 +24,7 @@ public:
 public:
 	Piece(Vei2 pos);
 	void Reset(Vei2 pos);
+	void Reset(Vei2 pos, const Field::Type type);
 	bool Move(Direction dir, const Field& field);
 	void Draw(Graphics& gfx, const Vei2& offset);
 	void Rotate(const Field& field);
@@ -36,7 +37,7 @@ public:
 	bool IsOccupied(int x, int y)const;
 private:
 	bool PieceFits(Vei2 newPos, const Field& field);
-	void SetPiece();
+	void SetPiece(bool random = true);
 	int Rotate(int x, int y, Rotation rot);
 	char piece[16];
 	Vei2 pos;

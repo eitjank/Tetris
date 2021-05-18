@@ -72,5 +72,7 @@ private:
 	static constexpr int lineScore = 100;
 	static constexpr int fallingScoreMultiplier = 1;
 	int score = 0;
+	Field::Type next;
+	Piece nextPiece;
 	/********************************/
 };

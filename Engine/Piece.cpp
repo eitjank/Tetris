@@ -10,8 +10,16 @@ Piece::Piece(Vei2 pos)
 void Piece::Reset(Vei2 pos)
 {
 	rot = Rotation::d0;
-	SetPiece();
 	this->pos = pos;
+	SetPiece();
+}
+
+void Piece::Reset(Vei2 pos, const Field::Type type)
+{
+	rot = Rotation::d0;
+	this->type = type;
+	this->pos = pos;
+	SetPiece(false);
 }
 
 bool Piece::Move(Direction dir, const Field& field)
@@ -228,9 +236,12 @@ bool Piece::PieceFits(Vei2 newPos, const Field& field)
 	return true;
 }
 
-void Piece::SetPiece()
+void Piece::SetPiece(bool random)
 {
-	type = Field::Type(rand() % 7 + 2);
+	if (random)
+	{
+		type = Field::Type(rand() % 7 + 2);
+	}
 	switch (type)
 	{
 	case Field::Type::I:
