@@ -27,12 +27,14 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	piece(pieceStartingPosition),
-	nextPiece(Vei2(0, 0))
+	nextPiece(Vei2(0, 0)),
+	holdPiece(Vei2(0, 0))
 {
 	srand(int(time(0)));
 	piece.Reset(pieceStartingPosition);
 	next = Field::Type(rand() % 7 + 2);
 	nextPiece.Reset(Vei2(0, 0), next);
+	holdPiece.Reset(Vei2(0, 0), Field::Type::None);
 }
 
 void Game::Go()
@@ -62,6 +64,25 @@ void Game::UpdateModel()
 				if (e.GetCode() == VK_UP)
 				{
 					piece.Rotate(gameField);
+				}
+				if (e.GetCode() == VK_RETURN && !usedHold)
+				{
+					if (holdPiece.GetType() == Field::Type::None)
+					{
+						holdPiece.Reset(Vei2(0, 0), piece.GetType());
+						piece.Reset(pieceStartingPosition, next);
+						next = Field::Type(rand() % 7 + 2);
+						nextPiece.Reset(Vei2(0, 0), next);
+						nFaster = nFasterConst;
+					}
+					else
+					{
+						Piece temp = piece;
+						piece.Reset(pieceStartingPosition, holdPiece.GetType());
+						holdPiece.Reset(Vei2(0, 0), temp.GetType());
+						nFaster = nFasterConst;
+					}
+					usedHold = true;
 				}
 			}
 		}
@@ -143,6 +164,7 @@ void Game::UpdateModel()
 				next = Field::Type(rand() % 7 + 2);
 				nextPiece.Reset(Vei2(0, 0), next);
 				nFaster = nFasterConst;
+				usedHold = false;
 				//Piece does not fit
 				gameOver = !piece.FitsDownwards(gameField);
 			}
@@ -181,8 +203,13 @@ void Game::ComposeFrame()
 {
 	gameField.Draw(gfx, Vei2(232, 5));
 	piece.Draw(gfx, Vei2(232, 5));
-	nextPiece.Draw(gfx, Vei2(566, 39));
+
 	font.DrawText("Next:", Vei2(580, 10), gfx);
+	nextPiece.Draw(gfx, Vei2(566, 39));
+
+	font.DrawText("Hold:", Vei2(109, 10), gfx);
+	holdPiece.Draw(gfx, Vei2(95, 39));
+
 	font.DrawText("Score:" + std::to_string(score),Vei2(580, 155) , gfx);
 	if (gameOver)
 	{

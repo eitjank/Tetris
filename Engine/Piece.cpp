@@ -293,6 +293,12 @@ void Piece::SetPiece(bool random)
 		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
 		color = Colors::Red;
 		break;
+	case Field::Type::None:
+		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = ' ';  piece[3] = ' ';
+		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = ' ';  piece[7] = ' ';
+		 piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
+		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
+		color = Colors::Black;
 	default:
 		break;
 	}

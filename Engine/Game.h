@@ -74,5 +74,7 @@ private:
 	int score = 0;
 	Field::Type next;
 	Piece nextPiece;
+	Piece holdPiece;
+	bool usedHold = false;
 	/********************************/
 };
