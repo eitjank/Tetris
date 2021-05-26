@@ -76,5 +76,6 @@ private:
 	Piece nextPiece;
 	Piece holdPiece;
 	bool usedHold = false;
+	const Vei2 drawPos = Vei2((Graphics::GetScreenRect().right - gameField.GetWidth() * gameField.tileSize) / 2, 5);
 	/********************************/
 };

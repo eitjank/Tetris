@@ -201,8 +201,8 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	gameField.Draw(gfx, Vei2(232, 5));
-	piece.Draw(gfx, Vei2(232, 5));
+	gameField.Draw(gfx, drawPos);
+	piece.Draw(gfx, drawPos);
 
 	font.DrawText("Next:", Vei2(580, 10), gfx);
 	nextPiece.Draw(gfx, Vei2(566, 39));
