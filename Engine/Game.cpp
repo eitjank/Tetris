@@ -207,8 +207,8 @@ void Game::ComposeFrame()
 	font.DrawText("Next:", Vei2(580, 10), gfx);
 	nextPiece.Draw(gfx, Vei2(566, 39));
 
-	font.DrawText("Hold:", Vei2(109, 10), gfx);
-	holdPiece.Draw(gfx, Vei2(95, 39));
+	font.DrawText("Hold:", Vei2(130, 10), gfx);
+	holdPiece.Draw(gfx, Vei2(115, 39));
 
 	font.DrawText("Score:" + std::to_string(score),Vei2(580, 155) , gfx);
 	if (gameOver)

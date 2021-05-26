@@ -242,6 +242,7 @@ void Piece::SetPiece(bool random)
 	{
 		type = Field::Type(rand() % 7 + 2);
 	}
+	color = Field::pieceColor[int(type)];
 	switch (type)
 	{
 	case Field::Type::I:
@@ -249,57 +250,50 @@ void Piece::SetPiece(bool random)
 		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
 		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
 		piece[12] = ' '; piece[13] = ' '; piece[14] = 'X'; piece[15] = ' ';
-		color = Colors::Cyan;
 		break;
 	case Field::Type::J:
 		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
 		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
 		 piece[8] = ' ';  piece[9] = 'X'; piece[10] = 'X'; piece[11] = ' ';
 		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		color = Colors::Blue;
 		break;
 	case Field::Type::L:
 		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
 		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = 'X';  piece[7] = ' ';
 		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = 'X';
 		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		color = { 255,165,0 };
 		break;
 	case Field::Type::O:
 		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = ' ';  piece[3] = ' ';
 		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
 		 piece[8] = ' ';  piece[9] = 'X'; piece[10] = 'X'; piece[11] = ' ';
 		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		color = Colors::Yellow;
 		break;
 	case Field::Type::S:
 		 piece[0] = ' ';  piece[1] = 'X';  piece[2] = ' ';  piece[3] = ' ';
 		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
 		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
 		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		color = { 63,255,0 };
 		break;
 	case Field::Type::T:
 		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
 		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
 		 piece[8] = ' ';  piece[9] = ' '; piece[10] = 'X'; piece[11] = ' ';
 		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		color = { 204,0,204 };
 		break;
 	case Field::Type::Z:
 		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = 'X';  piece[3] = ' ';
 		 piece[4] = ' ';  piece[5] = 'X';  piece[6] = 'X';  piece[7] = ' ';
 		 piece[8] = ' ';  piece[9] = 'X'; piece[10] = ' '; piece[11] = ' ';
 		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		color = Colors::Red;
 		break;
 	case Field::Type::None:
 		 piece[0] = ' ';  piece[1] = ' ';  piece[2] = ' ';  piece[3] = ' ';
 		 piece[4] = ' ';  piece[5] = ' ';  piece[6] = ' ';  piece[7] = ' ';
 		 piece[8] = ' ';  piece[9] = ' '; piece[10] = ' '; piece[11] = ' ';
 		piece[12] = ' '; piece[13] = ' '; piece[14] = ' '; piece[15] = ' ';
-		color = Colors::Black;
 	default:
+		color = {110,110,0};
 		break;
 	}
 }
