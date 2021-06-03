@@ -30,11 +30,19 @@ Game::Game( MainWindow& wnd )
 	nextPiece(Vei2(0, 0)),
 	holdPiece(Vei2(0, 0))
 {
+	try
+	{
+		theme = Sound(L"Tetris theme.wav", 0.0f, 77.2f);
+	}
+	catch (const SoundSystem::FileException& e)
+	{
+	}
 	srand(int(time(0)));
 	piece.Reset(pieceStartingPosition);
 	next = Field::Type(rand() % 7 + 2);
 	nextPiece.Reset(Vei2(0, 0), next);
 	holdPiece.Reset(Vei2(0, 0), Field::Type::None);
+	theme.Play();
 }
 
 void Game::Go()
@@ -53,6 +61,7 @@ void Game::UpdateModel()
 		pieceFallCounter += dt;
 
 		Piece::Direction dir = Piece::Direction::None;
+
 
 		while (!wnd.kbd.KeyIsEmpty())
 		{
@@ -201,6 +210,8 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	//gfx.DrawRect(RectI(drawPos, gameField.GetWidth() * gameField.tileSize, gameField.GetHeight() * gameField.tileSize), {50,20,60}); lags
+
 	gameField.Draw(gfx, drawPos);
 	piece.Draw(gfx, drawPos);
 
